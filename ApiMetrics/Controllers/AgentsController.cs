@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ApiMetrics.Controllers
 {
@@ -10,10 +7,24 @@ namespace ApiMetrics.Controllers
     [ApiController]
     public class AgentsController : Controller
     {
+        private readonly AgentHolder _holder;
+
+        AgentsController(AgentHolder holder)
+        {
+            _holder = holder;
+        }
+
         [HttpPost("register")]
         public IActionResult RegisterAgent([FromBody] AgentInfo agentInfo)
         {
+            _holder.Add(agentInfo);
             return Ok();
+        }
+
+        [HttpGet, Route("read")]
+        public IEnumerable<AgentInfo> Read()
+        {
+            return _holder.Values.ToArray();
         }
 
         [HttpPut("enable/{agentId}")]
