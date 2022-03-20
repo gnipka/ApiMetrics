@@ -24,6 +24,10 @@ namespace ApiMetrics
         }
 
         public IConfiguration Configuration { get; }
+        /// <summary>
+        /// массив хранит наименования таблиц
+        /// </summary>
+        public string[] TableName = new string[] { "cpumetrics", "dotnetmetrics" };
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -32,6 +36,7 @@ namespace ApiMetrics
             services.AddControllers();
             ConfigureSqlLiteConnection(services);
             services.AddScoped<ICpuMetricsRepository, CpuMetricsRepository>();
+            services.AddScoped<IDotNetMetricsRepository, DotNetMetricsRepository>();
 
         }
 
@@ -45,15 +50,18 @@ namespace ApiMetrics
 
         private void PrepareSchema(SQLiteConnection connection)
         {
-            using (var command = new SQLiteCommand(connection))
+            foreach (var item in TableName)
             {
-                // Задаём новый текст команды для выполнения
-                // Удаляем таблицу с метриками, если она есть в базе данных
-                command.CommandText = "DROP TABLE IF EXISTS cpumetrics";
-                // Отправляем запрос в базу данных
-                command.ExecuteNonQuery();
-                command.CommandText = @"CREATE TABLE cpumetrics(id INTEGER PRIMARY KEY, value INT, time INT)";
-                command.ExecuteNonQuery();
+                using (var command = new SQLiteCommand(connection))
+                {
+                    // Задаём новый текст команды для выполнения
+                    // Удаляем таблицу с метриками, если она есть в базе данных
+                    command.CommandText = $"DROP TABLE IF EXISTS {item}";
+                    // Отправляем запрос в базу данных
+                    command.ExecuteNonQuery();
+                    command.CommandText = @$"CREATE TABLE {item}(id INTEGER PRIMARY KEY, value INT, time INT)";
+                    command.ExecuteNonQuery();
+                }
             }
         }
 

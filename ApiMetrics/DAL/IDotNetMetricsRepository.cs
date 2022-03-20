@@ -2,7 +2,7 @@
 
 namespace ApiMetrics.DAL
 {
-    public interface ICpuMetricsRepository : IRepository<CpuMetric>
+    public interface IDotNetMetricsRepository : IRepository<DotNetMetric>
     {
     }
 }

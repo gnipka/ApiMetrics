@@ -1,5 +1,6 @@
 ﻿using ApiMetrics.DAL;
 using ApiMetrics.Requests;
+using ApiMetrics.ClassMetric;
 using ApiMetrics.Responses;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -11,7 +12,7 @@ namespace ApiMetrics.Controllers
     [ApiController]
     public class CpuMetricsController : ControllerBase
     {
-        private readonly ILogger<AgentInfo> _logger;
+        //private readonly ILogger<AgentInfo> _logger;
 
         private ICpuMetricsRepository repository;
         public CpuMetricsController(ICpuMetricsRepository repository)
