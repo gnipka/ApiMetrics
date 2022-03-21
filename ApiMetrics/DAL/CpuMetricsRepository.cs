@@ -82,7 +82,7 @@ namespace ApiMetrics.DAL
                     {
                         Id = reader.GetInt32(0),
                         Value = reader.GetInt32(1),
-                        Time = TimeSpan.FromSeconds(reader.GetInt32(1))
+                        Time = TimeSpan.FromSeconds(reader.GetInt32(2))
                     };
                 }
                 else
