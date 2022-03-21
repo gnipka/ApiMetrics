@@ -2,7 +2,7 @@
 
 namespace ApiMetrics.Responses
 {
-    public class DotNetMetricDto : MetricDto
+    public class NetworkMetricDto : MetricDto
     {
         public TimeSpan Time { get; set; }
     }

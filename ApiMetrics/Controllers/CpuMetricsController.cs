@@ -1,9 +1,8 @@
-﻿using ApiMetrics.DAL;
+﻿using ApiMetrics.ClassMetric;
+using ApiMetrics.DAL;
 using ApiMetrics.Requests;
-using ApiMetrics.ClassMetric;
 using ApiMetrics.Responses;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 
 namespace ApiMetrics.Controllers
@@ -12,13 +11,13 @@ namespace ApiMetrics.Controllers
     [ApiController]
     public class CpuMetricsController : ControllerBase
     {
-        //private readonly ILogger<AgentInfo> _logger;
-
         private ICpuMetricsRepository repository;
+
         public CpuMetricsController(ICpuMetricsRepository repository)
         {
             this.repository = repository;
         }
+
         [HttpPost("create")]
         public IActionResult Create([FromBody] CpuMetricCreateRequest request)
         {
@@ -29,6 +28,7 @@ namespace ApiMetrics.Controllers
             });
             return Ok();
         }
+
         [HttpGet("all")]
         public IActionResult GetAll()
         {
@@ -49,6 +49,7 @@ namespace ApiMetrics.Controllers
             return Ok(response);
         }
 
+        //private readonly ILogger<AgentInfo> _logger;
 
         //CpuMetricsController(ILogger<AgentInfo> logger)
         //{

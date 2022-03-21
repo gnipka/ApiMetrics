@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace ApiMetrics.Responses
+namespace ApiMetrics.ClassMetric
 {
-    public class DotNetMetricDto : MetricDto
+    public class NetworkMetric : Metric
     {
         public TimeSpan Time { get; set; }
     }
